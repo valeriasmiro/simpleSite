@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Random Number Generator</title>
+<style>
+  :root {
+    --neon-cyan: #00f0ff;
+    --neon-magenta: #ff00e5;
+    --bg-dark: #05050a;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    background: var(--bg-dark);
+    background-image:
+      linear-gradient(rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0,240,255,0.08), transparent 60%);
+    pointer-events: none;
+  }
+
+  .panel {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px 50px;
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    border-radius: 4px;
+    background: rgba(10, 10, 20, 0.6);
+    backdrop-filter: blur(6px);
+    box-shadow:
+      0 0 20px rgba(0, 240, 255, 0.25),
+      inset 0 0 30px rgba(0, 240, 255, 0.05);
+  }
+
+  h1 {
+    color: var(--neon-cyan);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin: 0 0 40px;
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+  }
+
+  .number-display {
+    font-size: 96px;
+    font-weight: bold;
+    color: #ffffff;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow:
+      0 0 15px var(--neon-magenta),
+      0 0 30px var(--neon-magenta),
+      0 0 60px rgba(255, 0, 229, 0.5);
+    margin-bottom: 40px;
+    transition: transform 0.15s ease;
+  }
+
+  .number-display.pulse {
+    animation: pulse 0.35s ease;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+
+  button {
+    background: transparent;
+    color: var(--neon-cyan);
+    border: 2px solid var(--neon-cyan);
+    padding: 16px 36px;
+    font-family: inherit;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+  }
+
+  button:hover {
+    background: var(--neon-cyan);
+    color: var(--bg-dark);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.9);
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+
+  .footer-line {
+    margin-top: 30px;
+    font-size: 11px;
+    color: rgba(0, 240, 255, 0.4);
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="panel">
+    <h1>// Генератор случайных чисел</h1>
+    <div class="number-display" id="numberDisplay">--</div>
+    <button id="generateBtn">Сгенерировать случайное число</button>
+    <div class="footer-line">диапазон: 1 – 100</div>
+  </div>
+
+  <script>
+    const button = document.getElementById('generateBtn');
+    const display = document.getElementById('numberDisplay');
+
+    button.addEventListener('click', () => {
+      const randomNumber = Math.floor(Math.random() * 100) + 1;
+      display.textContent = randomNumber;
+      display.classList.remove('pulse');
+      void display.offsetWidth;
+      display.classList.add('pulse');
+    });
+  </script>
+
+</body>
+</html>
